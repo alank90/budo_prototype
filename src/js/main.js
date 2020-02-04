@@ -1,3 +1,5 @@
+/* jshint esversion:9 */
+
 // DOM is ready
 $(document).ready(function () {
     let moreLink = document.createElement("a");
