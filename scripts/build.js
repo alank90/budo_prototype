@@ -203,15 +203,49 @@ require("rimraf")("./dist", function() {
         console.log(result);
 
         try {
-          // Copy CNAME to /dist folder if exists
-          const pathCname = "./CNAME";
+          // Copy CNAME to /dist folder
+          fs.stat("CNAME", async (error) => {
+            if (error) {
+              console.log(`No CNAME file present ${warning}`);
+            } else {
+              await copyFile("CNAME", "dist/CNAME", (err) => {
+                if (err) {
+                  console.log("Error Found:", err);
+                } else {
+                  console.log(`Copied CNAME to /dist. ${checkMark}`);
+                }
+              });
+            }
+          });
 
-          if (fs.existsSync(pathCname)) {
-            await access("CNAME", fs.constants.R_OK | fs.constants.W_OK);
-            await copyFile("CNAME", "dist/CNAME");
-          } else {
-            console.log(`${warning} No CNAME File present.`);
-          }
+          fs.stat("favicon.jpg", async (error) => {
+            if (error) {
+              console.log(`No favicon.jpg file present ${warning}`);
+            } else {
+              await copyFile("favicon.jpg", "dist/favicon.jpg", (err) => {
+                if (err) {
+                  console.log("Error Found:", err);
+                } else {
+                  console.log(`Copied favicon.jpg to /dist. ${checkMark}`);
+                }
+              });
+            }
+          });
+
+          // Copy 200.html to /dist folder
+          fs.stat("200.html", async (error) => {
+            if (error) {
+              console.log(`No 200.html file present ${warning}`);
+            } else {
+              await copyFile("200.html", "dist/200.html", (err) => {
+                if (err) {
+                  console.log("Error Found:", err);
+                } else {
+                  console.log(`Copied 200.html to /dist. ${checkMark}`);
+                }
+              });
+            }
+          });
 
           // Copy /src/resources to /dist folder
           const pathResources = "./src/resources";
