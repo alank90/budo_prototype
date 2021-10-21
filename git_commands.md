@@ -198,7 +198,7 @@ To update global packages, you can use:
 
 To force update to another major version use npm package command:
 
-**npm i -g** _nodemon@latest_
+**npm i -g** _packagename@latest_
 
 **To update project package dependencies to latest major version(s), install the** _npm-check-updates_ **package globally:**
 
