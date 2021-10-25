@@ -203,15 +203,28 @@ require("rimraf")("./dist", function() {
         console.log(result);
 
         try {
-          // Copy CNAME to /dist folder if exists
-          const pathCname = "./CNAME";
+          // Copy CNAME,favicon.jpg, and 200.html to /dist folder
+          await copyFile("CNAME", "./dist/CNAME")
+            .then(() =>
+              console.log(`CNAME copied successfully to /dist! ${checkMark}`)
+            )
+            .catch(() => console.log(`No CNAME file to copy. ${warning}`));
 
-          if (fs.existsSync(pathCname)) {
-            await access("CNAME", fs.constants.R_OK | fs.constants.W_OK);
-            await copyFile("CNAME", "dist/CNAME");
-          } else {
-            console.log(`${warning} No CNAME File present.`);
-          }
+          await copyFile("favicon.jpg", "./dist/favicon.jpg")
+            .then(() =>
+              console.log(
+                `favicon.jpg successfully copied to /dist! ${checkMark}`
+              )
+            )
+            .catch(() =>
+              console.log(`No favicon.jpg file to copy. ${warning}`)
+            );
+
+          await copyFile("200.html", "./dist/200.html")
+            .then(() =>
+              console.log(`200.html copied successfully to /dist! ${checkMark}`)
+            )
+            .catch(() => console.log(`No 200.html file to copy. ${warning}`));
 
           // Copy /src/resources to /dist folder
           const pathResources = "./src/resources";
